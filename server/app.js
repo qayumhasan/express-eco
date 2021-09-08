@@ -9,11 +9,15 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 const categoreyRouter = require('./routes/categores')
+const adminRouter = require('./routes/admin')
 
 app.set('views', path.join(__dirname, '/views'));
 app.use(express.static(path.join(__dirname, '/public')));
 
+app.set("view engine", "ejs");
+
 app.use('/',categoreyRouter)
+app.use('/admin',adminRouter)
 
 const PORT = process.env.PORT || 8080
 sequelize.sync()

@@ -1,8 +1,13 @@
 const Category = require('../models/categores')
 
 module.exports.categoryIndex =async(req,res)=>{
-    const categores =await Category.findAll({})
-    res.status(200).json(categores);
+    const categores =await Category.findAll({}).then((categores)=>{
+        res.render('category/index',{
+            categores
+        });
+    })
+
+
 }
 
 module.exports.categoryCreate = async(req,res)=>{

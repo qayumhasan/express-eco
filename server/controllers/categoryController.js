@@ -11,10 +11,16 @@ module.exports.categoryIndex =async(req,res)=>{
 }
 
 module.exports.categoryCreate = async(req,res)=>{
+    res.render('category/create')
+}
+
+
+module.exports.categoryStore = async(req,res)=>{
     const category =await Category.create({
         name:req.body.name
     });
-    res.status(200).json(category);
+
+    res.redirect('categores');
 }
 
 module.exports.categoryUpdate = (req,res)=>{
@@ -38,7 +44,9 @@ module.exports.categoryShow = async(req,res)=>{
 }
 module.exports.categoryDelete = async (req,res)=>{
     await Category.findByPk(req.params.id).then(category=>{
-        category.destroy(req.params.id);
+        category.destroy(req.params.id).then(()=>{
+            res.redirect('back');
+        });
     })
-    res.status(200);
+    
 }

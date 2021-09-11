@@ -31,12 +31,17 @@ app.use('/admin',adminRouter)
 
 app.use(session({
     secret: 'keyboard cat',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
-    cookie: { secure: true }
   }))
 
 app.use(flash());
+
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
 
 const PORT = process.env.PORT || 8080
 sequelize.sync()

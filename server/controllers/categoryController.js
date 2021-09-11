@@ -6,6 +6,7 @@ module.exports.categoryIndex =async(req,res)=>{
             categores
         });
     })
+   
 
 
 }
@@ -19,7 +20,7 @@ module.exports.categoryStore = async(req,res)=>{
     const category =await Category.create({
         name:req.body.name
     });
-
+   
     res.redirect('categores');
 }
 

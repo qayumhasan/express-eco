@@ -1,27 +1,35 @@
-const {body, validationResult} = require('express-validator');
+const { body, validationResult } = require('express-validator');
 const Category = require('../models/categores');
-CategoreyValidator=[
+CategoreyValidator = [
     body('name')
         .trim()
         .escape()
         .not()
         .isEmpty()
         .withMessage('Category name must not be empty!')
-        .custom(value=>{
-            return Category.findAll({
-                name:value
-            }).then((categorey)=>{
-                if(categorey){
+        .bail()
+        .custom(value => {
+            return Category.findOne({
+                where: {
+                    name: value
+                }
+
+            }).then((categorey) => {
+                if (categorey) {
                     return Promise.reject('Category Name already in use');
                 }
             })
         }),
-        (req,res,next)=>{
-            const errors = validationResult(req);
-            if (!errors.isEmpty())
-              return res.status(422).json({errors: errors.array()});
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const formetter = (error) => error.msg;
+            const categoryErrors = errors.formatWith(formetter).mapped()
+            return res.status(422).json({ errors: categoryErrors });
             next();
         }
+
+    }
 ]
 
-module.exports =CategoreyValidator
+module.exports = CategoreyValidator

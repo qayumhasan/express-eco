@@ -1,0 +1,45 @@
+
+    <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <h4 class="card-title ">Sub Category</h4>
+                    </div>
+
+                    <div class="col-md-6">
+                      <a class="btn btn-primary" href="/sub-categores/create" >Add Sub Category</a>
+                    </div>
+                  </div>
+                  
+                  
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="/sub-categores/store">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Sub Category</label>
+                          <input type="text" class="form-control" name="sub_cat_name" placeholder="Enter Category">
+                        </div>
+
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Select Category</label>
+
+                          <select class="form-control" name="cat_id" aria-label="Default select example">
+                            <option selected>Select Category</option>
+                            <% categores.forEach(function(cat) { %>
+                                <option value="<%=cat.id%>"><%=cat.name%></option>
+                            <% }); %> 
+                          </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

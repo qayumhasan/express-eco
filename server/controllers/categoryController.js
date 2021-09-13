@@ -1,14 +1,18 @@
 const Category = require('../models/categores')
 
 module.exports.categoryIndex =async(req,res)=>{
-    const categores =await Category.findAll({}).then((categores)=>{
+    const categores =await Category.findAll({
+        order: [
+            ['id', 'DESC'],
+        ],
+    }).then((categores)=>{
         res.render('category/index',{
             categores
         });
     })
-   
+    req.flash('info', 'Flash is back dfgsgdg!')
 
-
+    console.log(req.flash('info'))
 }
 
 module.exports.categoryCreate = async(req,res)=>{
@@ -17,11 +21,15 @@ module.exports.categoryCreate = async(req,res)=>{
 
 
 module.exports.categoryStore = async(req,res)=>{
+   
     const category =await Category.create({
         name:req.body.name
+    }).then(()=>{
+       
+        res.redirect('/categores');
     });
    
-    res.redirect('categores');
+    
 }
 
 module.exports.categoryUpdate = (req,res)=>{
@@ -30,7 +38,7 @@ module.exports.categoryUpdate = (req,res)=>{
             id:req.params.id
         }
     }).then(async()=>{
-        await res.status(200).json(category)
+        res.redirect('/categores')
     })
 }
 
@@ -49,5 +57,14 @@ module.exports.categoryDelete = async (req,res)=>{
             res.redirect('back');
         });
     })
+    
+}
+
+module.exports.categoryEdit = async (req,res)=>{
+    const id =req.params.id;
+    await Category.findByPk(id)
+            .then((cat)=>{
+                res.render('category/edit',{category:cat,id:id});
+            })
     
 }

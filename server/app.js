@@ -18,6 +18,7 @@ app.use(bodyParser.json())
 
 const categoreyRouter = require('./routes/categores')
 const adminRouter = require('./routes/admin')
+const subcategoreyRouter=require('./routes/sub_categores')
 
 app.set('views', path.join(__dirname, '/views'));
 app.use(express.static(path.join(__dirname, '/public')));
@@ -26,22 +27,27 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.set("view engine", "ejs");
 app.set('layout', 'layout');
 
-app.use('/',categoreyRouter)
-app.use('/admin',adminRouter)
-
 app.use(session({
-    secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true,
-  }))
-
-app.use(flash());
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true,
+}))
 
 app.use(require('connect-flash')());
 app.use(function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res);
   next();
 });
+
+app.use(flash());
+
+app.use('/sub-categores',subcategoreyRouter)
+app.use('/categores',categoreyRouter)
+app.use('/admin',adminRouter)
+
+
+
+
 
 const PORT = process.env.PORT || 8080
 sequelize.sync()

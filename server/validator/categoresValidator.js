@@ -26,8 +26,9 @@ CategoreyValidator = [
             const formetter = (error) => error.msg;
             const categoryErrors = errors.formatWith(formetter).mapped()
             return res.status(422).json({ errors: categoryErrors });
-            next();
+            
         }
+        next();
 
     }
 ]

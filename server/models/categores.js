@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
-const sequlize = require('../config/db')
+const sequlize = require('../config/db');
+const SubCategorey = require('./sub_categores');
+
 
 const Categores = sequlize.define('Categores', {
     id: {
@@ -17,5 +19,7 @@ const Categores = sequlize.define('Categores', {
         timestamps: true
     }
 );
+
+
 
 module.exports = Categores

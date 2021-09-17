@@ -27,7 +27,7 @@
                           Name
                         </th>
                         <th>
-                          Sub Category
+                          Category
                         </th>
                         <th>
                           Action
@@ -40,7 +40,7 @@
                               1
                             </td>
                             <td><%= cat.sub_cat_name %></td>
-                            <td><%= cat.cat_id %></td>
+                            <td><%= cat.Categore.name %></td>
                             <td>
                               <a href="/categores/edit/<%= cat.id %>" class="btn btn-info">Edit</a> || <a href="/categores/delete/<%= cat.id %>" class="btn btn-danger">Delete</a>
                             </td>

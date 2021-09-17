@@ -1,17 +1,22 @@
+const Categores = require('../models/categores');
 const Category = require('../models/categores');
 
 const SubCategorey =require('../models/sub_categores')
 
 module.exports.sub_category_index=async(req,res)=>{
     let SubCategores = [];
-    await SubCategorey.findAll({}).then((subCat)=>{
+    await SubCategorey.findAll({
+        include:{
+            model:Categores
+        }
+    }).then((subCat)=>{
         SubCategores =subCat;
-        res.status(200).json({
-            msg:'Success',
-            data:subCat
-        })
+        // res.status(200).json({
+        //     msg:'Success',
+        //     data:subCat
+        // })
     })
-    // res.render('./sub_category/index',{SubCategores});
+    res.render('./sub_category/index',{SubCategores});
 }
 module.exports.sub_category_create=async(req,res)=>{
 

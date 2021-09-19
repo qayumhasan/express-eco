@@ -18,4 +18,11 @@ const Categores = sequlize.define('Categores', {
     }
 );
 
+Categores.associate = models =>{
+    Categores.hasOne(models.SubCategorey,{
+        foreignKey:cat_id
+    })
+}
+
+
 module.exports = Categores

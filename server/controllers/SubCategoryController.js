@@ -4,8 +4,14 @@ const SubCategorey =require('../models/sub_categores')
 
 module.exports.sub_category_index=async(req,res)=>{
     let SubCategores = [];
-    await SubCategorey.findAll({}).then((subCat)=>{
+    await SubCategorey.findAll({
+        include: {
+            model: Category,
+            as: 'categores'
+          }
+    }).then((subCat)=>{
         SubCategores =subCat;
+
         res.status(200).json({
             msg:'Success',
             data:subCat

@@ -31,6 +31,7 @@ module.exports.sub_category_store=async(req,res)=>{
     await SubCategorey.create({
         'sub_cat_name':req.body.sub_cat_name,
         'cat_id':req.body.cat_id,
+        'CategoreId':req.body.cat_id,
     }).then(()=>{
         res.redirect('/sub-categores');
     })

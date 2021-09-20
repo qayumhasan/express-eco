@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
-const sequlize = require('../config/db')
+const sequlize = require('../config/db');
+const SubCategorey = require('./sub_categores');
+
 
 const Categores = sequlize.define('Categores', {
     id: {
@@ -17,12 +19,5 @@ const Categores = sequlize.define('Categores', {
         timestamps: true
     }
 );
-
-Categores.associate = models =>{
-    Categores.hasOne(models.SubCategorey,{
-        foreignKey:cat_id
-    })
-}
-
 
 module.exports = Categores

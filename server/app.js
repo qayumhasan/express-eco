@@ -6,6 +6,9 @@ const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session')
 const flash = require('connect-flash');
+const Categorey = require('./models/categores');
+const SubCategoy = require('./models/sub_categores')
+
 
 
 require('dotenv').config()
@@ -18,7 +21,9 @@ app.use(bodyParser.json())
 
 const categoreyRouter = require('./routes/categores')
 const adminRouter = require('./routes/admin')
-const subcategoreyRouter=require('./routes/sub_categores')
+const subcategoreyRouter=require('./routes/sub_categores');
+const SubCategorey = require('./models/sub_categores');
+const Categores = require('./models/categores');
 
 app.set('views', path.join(__dirname, '/views'));
 app.use(express.static(path.join(__dirname, '/public')));
@@ -45,9 +50,10 @@ app.use('/sub-categores',subcategoreyRouter)
 app.use('/categores',categoreyRouter)
 app.use('/admin',adminRouter)
 
+// console.log(relationwith)
 
-
-
+SubCategorey.belongsTo(Categores,{constraints:true,onDelete:'CASCADE'})
+Categores.hasMany(SubCategorey)
 
 const PORT = process.env.PORT || 8080
 sequelize.sync()

@@ -13,9 +13,24 @@ const Products = sequelize.define('products', {
         unique: true
     },
     cat_id: {
+        type: Sequelize.INTEGER,
+    },
+    sub_cat_id: {
+        type: Sequelize.INTEGER,
+    },
+    brand: {
         type: Sequelize.STRING,
         allowNull: false,
-    }
+    },
+    product_image: {
+        type: Sequelize.STRING,
+        allowNull: true,
+    },
+    description: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
+    
 }, {
     timestamps: true
 });

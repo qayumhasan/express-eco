@@ -7,7 +7,8 @@ const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session')
 const flash = require('connect-flash');
 const Categorey = require('./models/categores');
-const SubCategoy = require('./models/sub_categores')
+const SubCategoy = require('./models/sub_categores');
+const {relationwith} = require('./models/index');
 
 
 
@@ -52,10 +53,10 @@ app.use('/categores',categoreyRouter)
 app.use('/products',productRouter)
 app.use('/admin',adminRouter)
 
-// console.log(relationwith)
+relationwith()
 
-SubCategorey.belongsTo(Categores,{constraints:true,onDelete:'CASCADE'})
-Categores.hasMany(SubCategorey)
+// SubCategorey.belongsTo(Categores,{constraints:true,onDelete:'CASCADE'})
+// Categores.hasMany(SubCategorey)
 
 const PORT = process.env.PORT || 8080
 sequelize.sync()

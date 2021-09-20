@@ -30,12 +30,24 @@
                           Category
                         </th>
                         <th>
+                          Sub Category
+                        </th>
+                        <th>
                           Action
                         </th>
                       </thead>
                       <tbody>
-                        
-                
+                      <%products.forEach((item,key)=>{%>
+                        <tr>
+                          <th scope="row"><%= ++key%></th>
+                          <td><%=item.name%></td>
+                          <td><%=item.Categore.name%></td>
+                          <td><%=item.sub_category.sub_cat_name%></td>
+                           <td>
+                          <a href="/products/edit/<%= item.id %>" class="btn btn-info">Edit</a> || <a href="/products/delete/<%= item.id %>" class="btn btn-danger">Delete</a>
+                        </td>
+                        </tr>
+                      <%})%>
                       </tbody>
                     </table>
                   </div>

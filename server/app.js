@@ -22,6 +22,7 @@ app.use(bodyParser.json())
 const categoreyRouter = require('./routes/categores')
 const adminRouter = require('./routes/admin')
 const subcategoreyRouter=require('./routes/sub_categores');
+const productRouter = require('./routes/product');
 const SubCategorey = require('./models/sub_categores');
 const Categores = require('./models/categores');
 
@@ -48,6 +49,7 @@ app.use(flash());
 
 app.use('/sub-categores',subcategoreyRouter)
 app.use('/categores',categoreyRouter)
+app.use('/products',productRouter)
 app.use('/admin',adminRouter)
 
 // console.log(relationwith)

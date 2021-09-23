@@ -59,7 +59,7 @@ relationwith()
 // Categores.hasMany(SubCategorey)
 
 const PORT = process.env.PORT || 8080
-sequelize.sync()
+sequelize.sync({force:true})
     .then(() => {
         app.listen(PORT, () => {
             

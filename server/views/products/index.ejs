@@ -43,8 +43,11 @@
                           <td><%=item.name%></td>
                           <td><%=item.Categore.name%></td>
                           <td><%=item.sub_category.sub_cat_name%></td>
-                           <td>
+                          <td><img width="10%" src="/uploads/product/<%=item.product_image%>"/></td>
+
+                          <td>
                           <a href="/products/edit/<%= item.id %>" class="btn btn-info">Edit</a> || <a href="/products/delete/<%= item.id %>" class="btn btn-danger">Delete</a>
+
                         </td>
                         </tr>
                       <%})%>

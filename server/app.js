@@ -55,6 +55,8 @@ app.use('/admin',adminRouter)
 
 relationwith()
 
+
+
 // SubCategorey.belongsTo(Categores,{constraints:true,onDelete:'CASCADE'})
 // Categores.hasMany(SubCategorey)
 

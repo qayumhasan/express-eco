@@ -36,9 +36,11 @@ module.exports.store=async (req,res)=>{
     	sub_cat_id:sub_cat_id,
     	brand:brand,
     	description:description,
+        product_image:req.file.filename,
+
     }).then((result) =>{
-    	
     	res.redirect('/products');
     })
+    
    
 }

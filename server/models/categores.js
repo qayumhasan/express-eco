@@ -19,4 +19,5 @@ const Categores = sequlize.define('Categores', {
         timestamps: true
     }
 );
+
 module.exports = Categores

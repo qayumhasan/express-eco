@@ -9,7 +9,9 @@ const flash = require('connect-flash');
 const Categorey = require('./models/categores');
 const SubCategoy = require('./models/sub_categores');
 const {relationwith} = require('./models/index');
-
+var MySQLStore = require('express-mysql-session')(session);
+var cookieParser = require('cookie-parser');
+const {isAuthenticated} = require('./middleware/IsAuthenticated');
 
 
 require('dotenv').config()
@@ -19,13 +21,16 @@ app.use(expressLayouts);
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(cookieParser());
 
 const categoreyRouter = require('./routes/categores')
 const adminRouter = require('./routes/admin')
 const subcategoreyRouter=require('./routes/sub_categores');
 const productRouter = require('./routes/product');
-const SubCategorey = require('./models/sub_categores');
-const Categores = require('./models/categores');
+
+
+
+
 
 app.set('views', path.join(__dirname, '/views'));
 app.use(express.static(path.join(__dirname, '/public')));
@@ -34,11 +39,29 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.set("view engine", "ejs");
 app.set('layout', 'layout');
 
+var options = {
+	host: 'localhost',
+	port: 3306,
+	user: 'root',
+	password: '',
+	database: 'exp_eco1'
+};
+
+var sessionStore = new MySQLStore(options);
+
+
 app.use(session({
-  secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true,
-}))
+  secret: "secret",
+  resave: false,
+  store: sessionStore,
+  saveUninitialized: false,
+  cookie: {
+      // secure: true,
+      // httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24
+      
+  }
+}));
 
 app.use(require('connect-flash')());
 app.use(function (req, res, next) {
@@ -48,20 +71,17 @@ app.use(function (req, res, next) {
 
 app.use(flash());
 
-app.use('/sub-categores',subcategoreyRouter)
-app.use('/categores',categoreyRouter)
-app.use('/products',productRouter)
+app.use('/sub-categores',isAuthenticated,subcategoreyRouter)
+app.use('/categores',isAuthenticated,categoreyRouter)
+app.use('/products',isAuthenticated,productRouter)
 app.use('/admin',adminRouter)
+
 
 relationwith()
 
 
-
-// SubCategorey.belongsTo(Categores,{constraints:true,onDelete:'CASCADE'})
-// Categores.hasMany(SubCategorey)
-
 const PORT = process.env.PORT || 8080
-sequelize.sync({force:true})
+sequelize.sync()
     .then(() => {
         app.listen(PORT, () => {
             

@@ -12,6 +12,7 @@ const {relationwith} = require('./models/index');
 var MySQLStore = require('express-mysql-session')(session);
 var cookieParser = require('cookie-parser');
 const {isAuthenticated} = require('./middleware/IsAuthenticated');
+const compression = require('compression')
 
 
 require('dotenv').config()
@@ -40,7 +41,7 @@ app.set("view engine", "ejs");
 app.set('layout', 'layout');
 
 var options = {
-	host: 'localhost',
+	host: process.env.DB_HOST,
 	port: 3306,
 	user: 'root',
 	password: '',
@@ -69,6 +70,8 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.use(compression())
+
 app.use(flash());
 
 app.use('/sub-categores',isAuthenticated,subcategoreyRouter)
@@ -80,7 +83,7 @@ app.use('/admin',adminRouter)
 relationwith()
 
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 3000
 sequelize.sync()
     .then(() => {
         app.listen(PORT, () => {

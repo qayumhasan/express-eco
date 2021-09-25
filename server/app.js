@@ -41,11 +41,11 @@ app.set("view engine", "ejs");
 app.set('layout', 'layout');
 
 var options = {
-	host: process.env.DB_HOST,
+	host: 'sql6.freesqldatabase.com',
 	port: 3306,
-	user: 'root',
-	password: '',
-	database: 'exp_eco1'
+	user: 'sql6439874',
+	password: '3ghWPVJwqs',
+	database: 'sql6439874'
 };
 
 var sessionStore = new MySQLStore(options);

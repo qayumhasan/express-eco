@@ -76,10 +76,12 @@ app.use('/categores',isAuthenticated,categoreyRouter)
 app.use('/products',isAuthenticated,productRouter)
 app.use('/admin',adminRouter)
 
+// route for client site
 
+// app.use('/',function(req,res){
+//   res.render('./clients/index',{ layout: false });
+// })
 relationwith()
-
-
 const PORT = process.env.PORT || 8080
 sequelize.sync()
     .then(() => {
